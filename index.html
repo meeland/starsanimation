@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <title>Анимация движения звезд</title>
     <style>
-        /* Стили страницы */
         body {
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
             height: 100vh;
             overflow: hidden;
         }
-
-        /* Контейнеры для звезд */
         #stars, #stars2, #stars3 {
             background: transparent;
             position: absolute;
@@ -19,7 +16,6 @@
             left: 0;
         }
 
-        /* Разная скорость и размер для слоев */
         #stars {
             width: 1px;
             height: 1px;
@@ -35,8 +31,6 @@
             height: 3px;
             animation: animStar 120s linear infinite;
         }
-
-        /* Создаем "дубликат" слоя снизу для бесшовного зацикливания */
         #stars::after, #stars2::after, #stars3::after {
             content: " ";
             position: absolute;
@@ -46,45 +40,28 @@
             background: inherit;
             box-shadow: inherit;
         }
-
-        /* Движение */
         @keyframes animStar {   
             from { transform: translateX(0px); }
             to   { transform: translateX(2000px); }
         }
-
-
     </style>
 </head>
-<body>
 
+<body>
     <div id="stars"></div>
     <div id="stars2"></div>
     <div id="stars3"></div>
-
     <script>
-        /**
-         * Функция генерации теней (звезд)
-         * @param {string} selector - ID элемента
-         * @param {number} count - количество звезд
-         */
         function createStars(selector, count) {
             const element = document.querySelector(selector);
             let shadows = [];
-
             for (let i = 0; i < count; i++) {
-                // Генерируем случайные координаты в пределах 2000px
                 const x = Math.floor(Math.random() * 2000);
                 const y = Math.floor(Math.random() * 2000);
                 shadows.push(`${x}px ${y}px #FFF`);
             }
-
-            // Применяем сгенерированные тени к элементу
             element.style.boxShadow = shadows.join(", ");
         }
-
-        // Запускаем генерацию при загрузке
-        // (слой, количество звезд)
         createStars("#stars", 700);
         createStars("#stars2", 200);
         createStars("#stars3", 100);
